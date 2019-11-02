@@ -1,11 +1,43 @@
-import React from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import { useFetch } from './useFetch';
 import { url } from './config.json';
+import Button from './button';
 export default () => {
   const { data, isFetching, isError } = useFetch(url);
+  const [post, setPost] = useState(0);
+  const calculateLongestPost = useCallback(arr => {
+    console.log('adsf');
+    let longestPost = '';
+    if (!arr) {
+      return [];
+    } else {
+      arr.forEach(post => {
+        if (longestPost.length < post.body.length) longestPost = post.body;
+      });
+    }
+    return longestPost;
+  }, []);
+  const longestPost = useMemo(() => calculateLongestPost(data), [
+    data,
+    calculateLongestPost
+  ]);
+  const increment = useCallback(() => setPost(p => p + 1), [setPost]);
   return (
     <div>
+      <div>
+        <h2>Current Post {post}:</h2>
+        <span>{data.length && data[post].body}</span>
+        <Button increment={increment} />
+      </div>
+      <hr />
+      {data && (
+        <span>
+          <b>Longest Post :</b> {longestPost}
+        </span>
+      )}
+      <hr />
       <h2>Posts:</h2>
+
       {!isError ? (
         isFetching ? (
           <h1>Loading...</h1>

@@ -6,7 +6,6 @@ export default () => {
     email: '',
     password: ''
   });
-
   return (
     <>
       <h1>Hey</h1>
