@@ -1,12 +1,13 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useContext } from 'react';
 import { useFetch } from './useFetch';
 import { url } from './config.json';
 import Button from './button';
+import Darkmode from './Darkmode';
 export default () => {
   const { data, isFetching, isError } = useFetch(url);
   const [post, setPost] = useState(0);
+  const { darkMode, setDarkMode } = useContext(Darkmode);
   const calculateLongestPost = useCallback(arr => {
-    console.log('adsf');
     let longestPost = '';
     if (!arr) {
       return [];
@@ -17,13 +18,24 @@ export default () => {
     }
     return longestPost;
   }, []);
+
   const longestPost = useMemo(() => calculateLongestPost(data), [
     data,
     calculateLongestPost
   ]);
+
   const increment = useCallback(() => setPost(p => p + 1), [setPost]);
   return (
     <div>
+      <div>
+        <button
+          onClick={() => {
+            setDarkMode(!darkMode);
+          }}
+        >
+          Toggle View
+        </button>
+      </div>
       <div>
         <h2>Current Post {post}:</h2>
         <span>{data.length && data[post].body}</span>

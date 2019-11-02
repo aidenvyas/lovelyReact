@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import useForm from './useForm';
+import Darkmode from './Darkmode';
 export default () => {
   const [values, handleChange] = useForm({
     fName: '',
     email: '',
     password: ''
   });
+  const { darkMode, setDarkMode } = useContext(Darkmode);
   return (
     <>
-      <h1>Hey</h1>
+      <button
+        onClick={() => {
+          setDarkMode(!darkMode);
+        }}
+      >
+        Toggle View
+      </button>
       <form>
         <input
           type='text'
