@@ -12,11 +12,11 @@ const comment = createApiResource(
 export default () => {
   return (
     <div>
-      <h1>My Random Book</h1>
+      <h1>My First Post</h1>
       <Suspense fallback={<h1>Loading...</h1>}>
         <RandomPost resource={resource} />
       </Suspense>
-      <h2>My Random comment</h2>
+      <h2>My First Comment</h2>
       <Suspense fallback={<h1>Loading...</h1>}>
         <RandomPost resource={comment} />
       </Suspense>
